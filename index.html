@@ -101,7 +101,7 @@
             var newUser = document.getElementById("newUser");
             if (newUser.value) {
                 localStorage.setItem("user", newUser.value);
-                document.getElementById("userLocal").innerText += ' ' + newUser.value;
+                document.getElementById("userLocal").innerText = 'Bem Vindo ' + newUser.value;
             } else {
                 window.alert("Informe seu Nome");
             }
