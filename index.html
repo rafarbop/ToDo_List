@@ -1,51 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Salvando Dados na Sessão do Navegador</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
     <style>
-        body{
-            color: hsl(152, 69%, 20%);
-        }
-        .form-control:focus {
-            box-shadow: 0 0 0 0.2rem hsla(152, 69%, 31%, 0.4);
-        }
+      body {
+        color: hsl(152, 69%, 20%);
+      }
+      .form-control:focus {
+        box-shadow: 0 0 0 0.2rem hsla(152, 69%, 31%, 0.4);
+      }
     </style>
-</head>
-<body class="vh-100">
+  </head>
+  <body class="vh-100">
     <main class="d-flex flex-column align-items-center h-100">
-        <header class="bg-success bg-opacity-75 text-center py-2 w-100">
-            <h2 class="text-white">TO-DO LIST</h2>
-            <p id="userLocal" class="text-capitalize text-white fs-5"></p>
-        </header>
-        <section class="w-75 my-5">
-            <div class="input-group mb-3">
-                <span class="input-group-text bg-success bg-opacity-25 fs-5 fw-bold text-success border-success">Informe a Tarefa:</span>
-                <input id="newTask" type="text" aria-label="Tarefa a Incluir" class="form-control border-success fs-5">
-                <button class="btn btn-success fw-bold fs-5" type="button" id="confirmNewTask">Incluir</button>
-            </div>
-            <p class="text-center">
-                <button id="cleanAllTask" class="btn btn-outline-success" >Limpar lista de Tarefas</button>
-            </p>
-            <div>
-                <p class="mx-auto text-secondary text-center">Se desejar, informe ou altere seu Nome:</p>
-                <div class="input-group w-50 mx-auto">
-                    <input id="newUser" type="text" aria-label="Usuário" class="form-control border-secondary">
-                    <button class="btn btn-secondary" type="button" id="confirmNewUser">Confirmar</button>
-                </div>
-            </div>
-        </section>
-        <section class="bg-success border-success border-5 rounded-3 border bg-opacity-25 p-3 w-50 mb-auto">
-            <h3 class="text-center">Lista de Tarefas</h3>
-            <ul id="listAllTask">
-            </ul>
-        </section>
+      <header class="bg-success bg-opacity-75 text-center py-2 w-100">
+        <h2 class="text-white">TO-DO LIST</h2>
+        <p id="userLocal" class="text-capitalize text-white fs-5"></p>
+      </header>
+      <section class="w-75 my-5">
+        <div class="input-group mb-3">
+          <span
+            class="
+              input-group-text
+              bg-success bg-opacity-25
+              fs-5
+              fw-bold
+              text-success
+              border-success
+            "
+            >Informe a Tarefa:</span
+          >
+          <input
+            id="newTask"
+            type="text"
+            aria-label="Tarefa a Incluir"
+            class="form-control border-success fs-5"
+          />
+          <button
+            class="btn btn-success fw-bold fs-5"
+            type="button"
+            id="confirmNewTask"
+          >
+            Incluir
+          </button>
+        </div>
+        <p class="text-center">
+          <button id="cleanAllTask" class="btn btn-outline-success">
+            Limpar lista de Tarefas
+          </button>
+        </p>
+        <div>
+          <p class="mx-auto text-secondary text-center">
+            Se desejar, informe ou altere seu Nome:
+          </p>
+          <div class="input-group w-50 mx-auto">
+            <input
+              id="newUser"
+              type="text"
+              aria-label="Usuário"
+              class="form-control border-secondary"
+            />
+            <button class="btn btn-secondary" type="button" id="confirmNewUser">
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </section>
+      <section
+        class="
+          bg-success
+          border-success border-5
+          rounded-3
+          border
+          bg-opacity-25
+          p-3
+          w-50
+          mb-auto
+        "
+      >
+        <h3 class="text-center">Lista de Tarefas</h3>
+        <ul id="listAllTask"></ul>
+      </section>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src=/Todo_List/public/js/storage.js"></script>
-</body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // Ler tarefa a incluir, criar novo elemento li e incluir texto
+      document.getElementById("confirmNewTask").onclick = () => {
+        var newTask = document.getElementById("newTask");
+        var listAllTask = document.getElementById("listAllTask");
+        if (newTask.value) {
+          var itemList = document.createElement("li");
+          itemList.textContent = newTask.value;
+          console.log(newTask.value);
+          newTask.value = "";
+          listAllTask.appendChild(itemList);
+
+          console.log(listAllTask.innerHTML);
+          localStorage.setItem("listAllTask", listAllTask.innerHTML);
+        } else {
+          window.alert("Nenhuma tarefa informada!");
+        }
+      };
+
+      document.getElementById("confirmNewUser").onclick = () => {
+        var newUser = document.getElementById("newUser");
+        if (newUser.value) {
+          localStorage.setItem("user", newUser.value);
+          document.getElementById("userLocal").innerText = newUser.value;
+        } else {
+          window.alert("Informe seu Nome");
+        }
+      };
+
+      document.getElementById("cleanAllTask").onclick = () => {
+        localStorage.removeItem("listAllTask");
+        document.getElementById("listAllTask").innerHTML = "";
+      };
+
+      window.onload = () => {
+        var user = localStorage.getItem("user");
+        var listAllTask = localStorage.getItem("listAllTask");
+        if (user) {
+          document.getElementById("userLocal").innerText = user;
+        } else {
+          console.log("Nenhum usuário salvo em localStorage");
+        }
+        if (listAllTask) {
+          document.getElementById("listAllTask").innerHTML = listAllTask;
+        } else {
+          console.log("Nenhuma tarefa salva em localStorage");
+        }
+      };
+    </script>
+  </body>
 </html>
