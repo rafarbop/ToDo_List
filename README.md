@@ -10,4 +10,4 @@ Video com exemplos em varios frameworks
 [Building the same app 10 time](https://youtu.be/cuHDQhDhvPE)
 
 Link para visualização da página web
-https://rafabr.top/ToDo_List/
+https://rafabr.top/todo-list-simple/
