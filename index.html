@@ -16,6 +16,22 @@
         .form-control:focus {
             box-shadow: 0 0 0 0.2rem hsla(152, 69%, 31%, 0.4);
         }
+        @media (max-width: 768px) {
+            .input-group-addon, .input-group-btn, .input-group .form-control {
+                display: block;
+                clear: both;
+                width: 75vw;
+                min-width: 50vw;
+            }
+            .input-group {
+                display: block;
+                min-width: 75vw;
+            }
+            #sectionTasks{
+                width: 100vw!important;
+            }
+            
+          }
     </style>
 </head>
 
@@ -24,9 +40,17 @@
         <header class="bg-success bg-opacity-75 text-center py-2 w-100">
             <h2 class="text-white">TO-DO LIST</h2>
             <p id="userLocal" class="text-capitalize text-white fs-5">Bem Vindo</p>
+            <div>
+                <div class="input-group w-50 mx-auto">
+                    <input id="newUser" type="text" placeholder="Informe/Altere seu Nome" aria-label="Usuário" class="form-control border-secondary" />
+                    <button class="btn btn-secondary " type="button" id="confirmNewUser">
+                        Alterar Nome
+                    </button>
+                </div>
+            </div>
         </header>
-        <section class="w-75 my-5">
-            <div class="input-group mb-3">
+        <section class="w-75 mb-5">
+            <div class="input-group my-3 mx-auto text-center ">
                 <span class="
               input-group-text
               bg-success bg-opacity-25
@@ -41,37 +65,32 @@
                     Incluir
                 </button>
             </div>
-            <p class="text-center">
-                <button id="cleanAllTask" class="btn btn-outline-success">
-                    Limpar lista de Tarefas
-                </button>
-            </p>
-            <div>
-                <p class="mx-auto text-secondary text-center">
-                    Se desejar, informe ou altere seu Nome:
-                </p>
-                <div class="input-group w-50 mx-auto">
-                    <input id="newUser" type="text" aria-label="Usuário" class="form-control border-secondary" />
-                    <button class="btn btn-secondary" type="button" id="confirmNewUser">
-                        Confirmar
-                    </button>
-                </div>
-            </div>
         </section>
-        <section class="
-          bg-success
-          border-success border-5
-          rounded-3
-          border
-          bg-opacity-25
-          p-3
-          w-50
-          mb-auto
+        <section id="sectionTasks" class="
+        bg-success
+        border-success border-5
+        rounded-3
+        border
+        bg-opacity-25
+        p-3
+        w-50
+        mb-auto
         ">
-            <h3 class="text-center">Lista de Tarefas</h3>
-            <ul id="listAllTask"></ul>
-        </section>
-    </main>
+        <h3 class="text-center">Lista de Tarefas</h3>
+        <ul id="listAllTask"></ul>
+        <p class="text-center">
+            <button id="cleanAllTask" class="btn btn-outline-success">
+                Limpar lista de Tarefas
+            </button>
+        </p>
+    </section>
+
+    <footer class="footer mt-3 w-100 bg-success bg-opacity-25">
+        <div class="container text-center">
+          <span class="text-muted">Aplicação de Lista de Afazeres com <a href="https://getbootstrap.com">BootStrap</a> e JavaScript <br> Persistência de Dados em <a href="https://www.w3schools.com/html/html5_webstorage.asp">Local Storage</a></span>
+        </div>
+    </footer>
+</main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -86,11 +105,11 @@
             if (newTask.value) {
                 var itemList = document.createElement("li");
                 itemList.textContent = newTask.value;
-                console.log(newTask.value);
                 newTask.value = "";
+                if (!localStorage.getItem("listAllTask")){
+                    listAllTask.innerHTML = "";
+                }
                 listAllTask.appendChild(itemList);
-
-                console.log(listAllTask.innerHTML);
                 localStorage.setItem("listAllTask", listAllTask.innerHTML);
             } else {
                 window.alert("Nenhuma tarefa informada!");
@@ -109,21 +128,21 @@
 
         document.getElementById("cleanAllTask").onclick = () => {
             localStorage.removeItem("listAllTask");
-            document.getElementById("listAllTask").innerHTML = "";
+            document.getElementById("listAllTask").innerHTML = "<li>Nenhuma Tarefa Planejada</li>";
         };
 
         window.onload = () => {
             var user = localStorage.getItem("user");
-            var listAllTask = localStorage.getItem("listAllTask");
+            var allTasksLocalStorage = localStorage.getItem("listAllTask");
             if (user) {
                 document.getElementById("userLocal").innerText += ' ' + user;
             } else {
-                console.log("Nenhum usuário salvo em localStorage");
+                document.getElementById("userLocal").innerText += ' ' + "Convidado";
             }
-            if (listAllTask) {
-                document.getElementById("listAllTask").innerHTML = listAllTask;
+            if (allTasksLocalStorage) {
+                document.getElementById("listAllTask").innerHTML = allTasksLocalStorage;
             } else {
-                console.log("Nenhuma tarefa salva em localStorage");
+                document.getElementById("listAllTask").innerHTML = "<li>Nenhuma Tarefa Planejada</li>";
             }
         };
     </script>
