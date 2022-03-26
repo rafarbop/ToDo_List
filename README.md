@@ -3,11 +3,10 @@
 Lista de tarefas usando JavaScript Vanilla e Bootstrap
 
 Usado persistência dos dados no Storage do Navegador para salvar e carregar a lista de tarefas  
-[Storage - Mozzila](https://developer.mozilla.org/en-US/docs/Web/API/Storage/clear)
-[Storage - W3Schools](https://www.w3schools.com/jsreF/prop_win_localstorage.asp)
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage/clear" target="_blank">Storage - Mozzila</a>
+<a href="https://www.w3schools.com/html/html5_webstorage.asp" target="_blank">Storage - W3Schools</a>
 
-Video com exemplos em varios frameworks  
-[Building the same app 10 time](https://youtu.be/cuHDQhDhvPE)
 
-Link para visualização da página web
-https://rafabr.top/todo-list-simple/
+Visualização do projeto web: 
+<a href="https://rafabr.top/todo-list-simple/" target="_blank">https://rafabr.top/todo-list-simple/</a>
+
