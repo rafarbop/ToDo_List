@@ -1,0 +1,37 @@
+body {
+    color: hsl(152, 69%, 20%);
+}
+
+[data-tooltip]:before {            
+    position : absolute;
+    content : attr(data-tooltip);
+    color: hsl(152, 15%, 31%);
+    font-weight: 900;
+    left: 120%;
+    width: max-content;
+    height: 1em;
+    opacity : 0;
+}
+[data-tooltip]:hover:before {        
+    opacity : 1;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem hsla(152, 69%, 31%, 0.4);
+}
+@media (max-width: 768px) {
+    .input-group-addon, .input-group-btn, .input-group .form-control {
+        display: block;
+        clear: both;
+        width: 75vw;
+        min-width: 50vw;
+    }
+    .input-group {
+        display: block;
+        min-width: 75vw;
+    }
+    #sectionTasks{
+        width: 100vw!important;
+    }
+    
+  }

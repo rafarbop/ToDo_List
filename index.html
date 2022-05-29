@@ -6,48 +6,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Salvando Dados na Sessão do Navegador</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
-    <style>
-        body {
-            color: hsl(152, 69%, 20%);
-        }
-
-        .form-control:focus {
-            box-shadow: 0 0 0 0.2rem hsla(152, 69%, 31%, 0.4);
-        }
-        @media (max-width: 768px) {
-            .input-group-addon, .input-group-btn, .input-group .form-control {
-                display: block;
-                clear: both;
-                width: 75vw;
-                min-width: 50vw;
-            }
-            .input-group {
-                display: block;
-                min-width: 75vw;
-            }
-            #sectionTasks{
-                width: 100vw!important;
-            }
-            
-          }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/public/css/style.css">
 </head>
 
 <body class="vh-100">
-    <main class="d-flex flex-column align-items-center h-100">
-        <header class="bg-success bg-opacity-75 text-center py-2 w-100">
-            <h2 class="text-white">TO-DO LIST</h2>
-            <p id="userLocal" class="text-capitalize text-white fs-5">Bem Vindo</p>
-            <div>
-                <div class="input-group w-50 mx-auto">
-                    <input id="newUser" type="text" placeholder="Informe/Altere seu Nome" aria-label="Usuário" class="form-control border-secondary" />
-                    <button class="btn btn-secondary " type="button" id="confirmNewUser">
-                        Alterar Nome
-                    </button>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success bg-opacity-75">
+        <div class="container-fluid flex-column">
+            <a class="navbar-brand" href="#">TO-DO LIST</a>
+            </button>
+            <div id="navbarSupportedContent" class="position-relative start-0">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Configurações
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <p id="exportar-json" class="dropdown-item" role="button">Exportar dados para JSON</p>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <p id="clean-username" class="dropdown-item" role="button">Limpar nome de Usuário</p>
+                            </li>
+                            <li>
+                                <p id="clean-all-data" class="dropdown-item" role="button">Limpar todos os Dados</p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
+        </div>
+      </nav>
+    <main class="d-flex flex-column align-items-center h-100">
+        <header class="bg-success bg-opacity-25 text-center py-4 w-100">
+            <p class="text-capitalize fw-bold text-success fs-5" >
+                Bem Vindo
+                <span id="userLocal">Convidado</span>
+                <sup data-tooltip="Informe/Altere seu nome">
+                    <i class="bi bi-pencil-square"></i>
+                </sup>
+            </p>
+            <section id="new-username" class="input-group w-50 mx-auto d-none">
+                <input id="newUser" type="text" placeholder="Informe/Altere seu Nome" aria-label="Usuário" class="form-control border-secondary" />
+                <button class="btn btn-secondary " type="button" id="confirmNewUser">
+                    Alterar Nome
+                </button>
+            </section>
         </header>
         <section class="w-75 mb-5">
             <div class="input-group my-3 mx-auto text-center ">
@@ -97,55 +105,7 @@
         crossorigin="anonymous">
     </script>
 
-    <script>
-        // Ler tarefa a incluir, criar novo elemento li e incluir texto
-        document.getElementById("confirmNewTask").onclick = () => {
-            var newTask = document.getElementById("newTask");
-            var listAllTask = document.getElementById("listAllTask");
-            if (newTask.value) {
-                var itemList = document.createElement("li");
-                itemList.textContent = newTask.value;
-                newTask.value = "";
-                if (!localStorage.getItem("listAllTask")){
-                    listAllTask.innerHTML = "";
-                }
-                listAllTask.appendChild(itemList);
-                localStorage.setItem("listAllTask", listAllTask.innerHTML);
-            } else {
-                window.alert("Nenhuma tarefa informada!");
-            }
-        };
-
-        document.getElementById("confirmNewUser").onclick = () => {
-            var newUser = document.getElementById("newUser");
-            if (newUser.value) {
-                localStorage.setItem("user", newUser.value);
-                document.getElementById("userLocal").innerText = 'Bem Vindo ' + newUser.value;
-            } else {
-                window.alert("Informe seu Nome");
-            }
-        };
-
-        document.getElementById("cleanAllTask").onclick = () => {
-            localStorage.removeItem("listAllTask");
-            document.getElementById("listAllTask").innerHTML = "<li>Nenhuma Tarefa Planejada</li>";
-        };
-
-        window.onload = () => {
-            var user = localStorage.getItem("user");
-            var allTasksLocalStorage = localStorage.getItem("listAllTask");
-            if (user) {
-                document.getElementById("userLocal").innerText += ' ' + user;
-            } else {
-                document.getElementById("userLocal").innerText += ' ' + "Convidado";
-            }
-            if (allTasksLocalStorage) {
-                document.getElementById("listAllTask").innerHTML = allTasksLocalStorage;
-            } else {
-                document.getElementById("listAllTask").innerHTML = "<li>Nenhuma Tarefa Planejada</li>";
-            }
-        };
-    </script>
+<script src="/public/js/todo.js"></script>
 </body>
 
 </html>
