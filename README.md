@@ -8,5 +8,5 @@ Usado persistência dos dados no Storage do Navegador para salvar e carregar a l
 
 
 Visualização do projeto web: 
-<a href="https://rafabr.top/todo-list-simple/" target="_blank">https://rafabr.top/todo-list-simple/</a>
+<a href="https://rafabruno.work/todo-list-simple/" target="_blank">https://rafabruno.work/todo-list-simple/</a>
 
