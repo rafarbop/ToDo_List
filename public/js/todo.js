@@ -38,8 +38,17 @@ document.getElementById("confirmNewTask").onclick = () => {
     var listAllTask = document.getElementById("listAllTask");
     if (newTask.value) {
         var itemList = document.createElement("li");
-        itemList.textContent = newTask.value;
+        var inputList = document.createElement("input");
+        var labelInputList = document.createElement("label");
+        inputList.type = "checkbox";
+        inputList.checked = false;
+        inputList.style.marginRight = "0.5rem"
+        inputList.setAttribute("onclick","labelChanged(this)");
+        labelInputList.innerText = newTask.value
+        itemList.appendChild(inputList);
+        itemList.appendChild(labelInputList);
         newTask.value = "";
+
         if (!localStorage.getItem("listAllTask")){
             listAllTask.innerHTML = "";
         }
@@ -50,7 +59,23 @@ document.getElementById("confirmNewTask").onclick = () => {
     }
 };
 
-// Opções de limpenza de dados
+function labelChanged(inputItemList) {
+    var listAllTask = document.getElementById("listAllTask");
+    console.log(inputItemList.parentElement.lastChild)
+    if (inputItemList.checked == true){
+        inputItemList.parentElement.lastChild.style.textDecoration = "line-through"
+        inputItemList.setAttribute("checked","true")
+        console.log(inputItemList)
+    }
+    else {
+        inputItemList.parentElement.lastChild.style.textDecoration = "none"
+        inputItemList.setAttribute("checked","false")
+        console.log(inputItemList)
+    }
+    localStorage.setItem("listAllTask", listAllTask.innerHTML);
+}
+
+// Opções de limpeza de dados
 document.getElementById("cleanAllTask").onclick = () => {
     localStorage.removeItem("listAllTask");
     document.getElementById("listAllTask").innerHTML = "<li>Nenhuma Tarefa Planejada</li>";
@@ -69,7 +94,7 @@ document.getElementById("clean-all-data").onclick = () => {
 document.getElementById("exportar-json").onclick = () => {
     var listTaks = []
     var idTask = 0
-    document.querySelectorAll("#listAllTask > li").forEach((task) => {
+    document.querySelectorAll("#listAllTask > input").forEach((task) => {
         listTaks.push(`{"id":"${idTask}","Tarefa":"${task.innerText}"}`)
         idTask += 1
         
